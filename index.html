@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script
+      src="https://kit.fontawesome.com/7786326f7e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="weather-app">
+      <form id="city-form">
+        <div class="row">
+          <div class="col-6">
+            <input
+              class="form-control"
+              placeholder="Enter a City"
+              id="city-input"
+            />
+          </div>
+          <div class="col-3">
+            <input
+              class="form-control btn btn-info"
+              type="submit"
+              value="Search"
+              id="search-button"
+            />
+          </div>
+          <div class="col-3">
+            <input
+              class="form-control btn btn-success"
+              type="submit"
+              value="Current"
+              id="current-city-button"
+            />
+          </div>
+        </div>
+      </form>
+      <div id="weather-report" style="display: none">
+        <h1 class="city" id="current-city"></h1>
+        <p class="current-date" id="current-date"></p>
+        <p class="current-temperature">
+          <i class="fas fa-cloud-rain current-weather-icon"></i>
+          <span id="temperature-digits"></span><a href="#" id="celsius">°C</a>
+        </p>
+        <hr />
+        <p class="weather-info">
+          Humidity: <span id="humidity"></span>%
+          <br />
+          Wind: <span id="wind-speed"></span> m/s
+        </p>
+        <hr />
+        <div class="container">
+          <div class="row five-day">
+            <div class="col">
+              <p>
+                <strong>Sat</strong>
+                <br />
+                14°C
+                <br />
+                <i class="fas fa-cloud-sun weather-icon"></i>
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                <strong>Sun</strong>
+                <br />
+                13°C
+                <br />
+                <i class="fas fa-cloud weather-icon"></i>
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                <strong>Mon</strong>
+                <br />
+                17°C
+                <br />
+                <i class="fas fa-cloud weather-icon"></i>
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                <strong>Tue </strong>
+                <br />
+                17°C
+                <br />
+                <i class="fas fa-sun weather-icon"></i>
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                <strong>Wed</strong>
+                <br />
+                16°C
+                <br />
+                <i class="fas fa-cloud-rain weather-icon"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
