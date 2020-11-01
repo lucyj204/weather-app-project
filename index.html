@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather</title>
+    <link rel="stylesheet" href="src/styles.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="src/styles.css" />
     <script
       src="https://kit.fontawesome.com/7786326f7e.js"
       crossorigin="anonymous"
@@ -55,7 +55,7 @@
         <h1 class="city" id="current-city"></h1>
         <p class="current-date" id="current-date"></p>
         <p class="current-temperature">
-          <i class="fas fa-cloud-rain current-weather-icon"></i>
+          <img src="" id ="current-weather-icon">
           <span id="temperature-digits"></span><a href="#" id="celsius">°C</a>
         </p>
         <hr />
@@ -116,10 +116,10 @@
         </div>
       </div>
     </div>
-    <p class="open-source-link">
+    <small class="open-source-link">
       <a href="https://github.com/lucyj204/weather-app-project">
         Open-source code
-      </a>
+      </small>
       by Lucy Joyce
     </p>
     <script src="src/index.js"></script>
