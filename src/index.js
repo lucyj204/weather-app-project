@@ -56,6 +56,8 @@ function handleOpenWeatherMapResponse(weatherData) {
   let weatherReportElement = document.querySelector("#weather-report");
   weatherReportElement.style.display = "block";
 
+  celsiusTemperature = weatherData.main.temp;
+
   let currentDate = document.querySelector(".current-date");
   currentDate.innerHTML = formatCurrentDate();
 
@@ -100,8 +102,28 @@ function showWeatherDataForCurrentLocation() {
   navigator.geolocation.getCurrentPosition(showWeatherDataForLocation);
 }
 
+function updateTemperatureToFahrenheit(event) {
+  event.preventDefault();
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#temperature-digits");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function updateTemperatureToCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature-digits");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+let celsiusTemperature = null;
+
 let searchButton = document.querySelector("#city-form");
 searchButton.addEventListener("click", showWeatherDataForSearchCity);
 
 let currentCityButton = document.querySelector("#current-city-button");
 currentCityButton.addEventListener("click", showWeatherDataForCurrentLocation);
+
+let changeToFahrenheit = document.querySelector("#fahrenheit");
+changeToFahrenheit.addEventListener("click", updateTemperatureToFahrenheit);
+
+let changetoCelsius = document.querySelector("#celsius");
+changetoCelsius.addEventListener("click", updateTemperatureToCelsius);
