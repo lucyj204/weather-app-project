@@ -31,6 +31,13 @@ function formatCurrentDate() {
   return `${day} ${date} ${month} ${hours}:${minutes}`;
 }
 
+function formatForecastTime(timestamp) {
+  let now = new Date(timestamp);
+  let hours = String(now.getHours()).padStart(2, "0");
+  let minutes = String(now.getMinutes()).padStart(2, `0`);
+  return `${hours}:${minutes}`;
+}
+
 function showWeatherDataForSearchCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input");
@@ -50,8 +57,33 @@ function showWeatherDataForSearchCity(event) {
   }
 
   axios.get(apiUrl).then(handle);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherForecast);
 }
 
+function displayWeatherForecast(response) {
+  let weatherForecastElement = document.querySelector("#weather-forecast");
+  let weatherForecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    weatherForecast = response.data.list[index];
+    weatherForecastElement.innerHTML += `
+            <div class="col">
+              <p>
+                <strong>${formatForecastTime(
+                  weatherForecast.dt * 1000
+                )}</strong>
+                <br />
+                ${Math.round(weatherForecast.main.temp)}°C
+                <br />
+                <img src="http://openweathermap.org/img/wn/${
+                  weatherForecast.weather[0].icon
+                }@2x.png" alt="">
+              </p>
+            </div>`;
+  }
+}
 function handleOpenWeatherMapResponse(weatherData) {
   let weatherReportElement = document.querySelector("#weather-report");
   weatherReportElement.style.display = "block";

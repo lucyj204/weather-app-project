@@ -12,7 +12,7 @@ hr {
 
 .weather-app {
   margin: 40px auto;
-  width: 450px;
+  width: 500px;
   border: 1px solid #00587a;
   padding: 30px;
   border-radius: 5px;
@@ -31,11 +31,6 @@ hr {
 
 .weather-icon {
   font-size: 200%;
-}
-
-.five-day .col {
-  text-align: center;
-  color: #00587a;
 }
 
 .active {
@@ -79,4 +74,9 @@ hr {
 #current-weather-icon {
   vertical-align: middle;
   width: 35%;
+}
+
+#weather-forecast .col {
+  text-align: center;
+  color: #00587a;
 }
