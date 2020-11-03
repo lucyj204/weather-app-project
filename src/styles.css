@@ -29,17 +29,6 @@ hr {
   color: #00587a;
 }
 
-.current-temperature {
-  font-size: 50px;
-  font-weight: 350;
-  color: #00587a;
-}
-
-.current-weather-icon {
-  font-size: 200%;
-  vertical-align: middle;
-}
-
 .weather-icon {
   font-size: 200%;
 }
@@ -49,12 +38,30 @@ hr {
   color: #00587a;
 }
 
+.active {
+  font-weight: bold;
+  color: black;
+}
+
+.active:hover {
+  text-decoration: none;
+  cursor: default;
+  color: black;
+}
+
 .temperature-divider {
   font-size: 20px;
 }
 
 .open-source-link {
   text-align: center;
+}
+
+#temperature-digits {
+  font-size: 70px;
+  font-weight: 350;
+  color: #00587a;
+  vertical-align: middle;
 }
 
 #celsius {
@@ -67,4 +74,9 @@ hr {
 
 #current-city {
   text-transform: capitalize;
+}
+
+#current-weather-icon {
+  vertical-align: middle;
+  width: 35%;
 }
