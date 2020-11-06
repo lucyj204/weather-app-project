@@ -64,6 +64,7 @@ function showWeatherDataForSearchCity(event) {
 
 function displayWeatherForecast(response) {
   let weatherForecastElement = document.querySelector("#weather-forecast");
+  weatherForecastElement.innerHTML = null;
   let weatherForecast = null;
 
   for (let index = 0; index < 6; index++) {
@@ -113,7 +114,7 @@ function handleOpenWeatherMapResponse(weatherData) {
   weatherIconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
-  ) = weatherData.weather[0].icon;
+  );
 }
 
 function showWeatherDataForLocation(position) {
@@ -128,6 +129,8 @@ function showWeatherDataForLocation(position) {
   }
 
   axios.get(apiUrl).then(handle);
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherForecast);
 }
 
 function showWeatherDataForCurrentLocation() {
@@ -136,6 +139,7 @@ function showWeatherDataForCurrentLocation() {
 
 function updateTemperatureToFahrenheit(event) {
   event.preventDefault();
+  temperatureUnit = "fahrenheit";
   changetoCelsius.classList.remove("active");
   changeToFahrenheit.classList.add("active");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
@@ -145,12 +149,14 @@ function updateTemperatureToFahrenheit(event) {
 
 function updateTemperatureToCelsius(event) {
   event.preventDefault();
+  temperatureUnit = "celsius";
   changeToFahrenheit.classList.remove("active");
   changetoCelsius.classList.add("active");
   let temperatureElement = document.querySelector("#temperature-digits");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 let celsiusTemperature = null;
+let temperatureUnit = "celsius";
 
 let searchButton = document.querySelector("#city-form");
 searchButton.addEventListener("click", showWeatherDataForSearchCity);
@@ -163,3 +169,5 @@ changeToFahrenheit.addEventListener("click", updateTemperatureToFahrenheit);
 
 let changetoCelsius = document.querySelector("#celsius");
 changetoCelsius.addEventListener("click", updateTemperatureToCelsius);
+
+window.addEventListener("load", showWeatherDataForCurrentLocation);
