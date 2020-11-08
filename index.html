@@ -55,30 +55,43 @@
         <h1 class="city" id="current-city"></h1>
         <p class="current-date" id="current-date"></p>
         <p class="current-temperature">
-          <img src="" id ="current-weather-icon">
-          <span id="temperature-digits" > </span> <a href="#" class="active" id="celsius">°C</a> <span class="temperature-divider">|</span><a href="#" id=
-          "fahrenheit"> °F</a>
-        </p>
-        <hr />
-        <p class="weather-info">
-          Humidity: <span id="humidity"></span>%
-          <br />
-          Wind: <span id="wind-speed"></span> m/s
+          <img src="" id="current-weather-icon" />
+          <span id="temperature-digits"> </span>
+          <a href="#" class="active" id="celsius">°C</a>
+          <span class="temperature-divider">|</span
+          ><a href="#" id="fahrenheit"> °F</a>
         </p>
         <hr />
         <div class="container">
-          <div class="row" id="weather-forecast">
-            
+          <div class="row">
+            <div class="col">
+              <p class="sunrise-sunset">
+                Sunrise: <span id="sunrise-time"></span>
+                <br />
+                Sunset: <span id="sunset-time"></span>
+              </p>
+            </div>
+
+            <div class="col">
+              <p class="weather-info">
+                Humidity: <span id="humidity"></span>%
+                <br />
+                Wind: <span id="wind-speed"></span> m/s
+              </p>
+            </div>
           </div>
+          <hr />
+          <div class="row" id="weather-forecast"></div>
         </div>
       </div>
     </div>
     <small class="open-source-link">
       <a href="https://github.com/lucyj204/weather-app-project">
         Open-source code
-      </small>
+      </a>
+
       by Lucy Joyce
-    </p>
+    </small>
     <script src="src/index.js"></script>
   </body>
 </html>

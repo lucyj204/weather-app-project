@@ -24,6 +24,11 @@ hr {
   color: #00587a;
 }
 
+.sunrise-sunset {
+  font-weight: 450;
+  color: #00587a;
+}
+
 .current-date {
   font-size: 25px;
   color: #00587a;
