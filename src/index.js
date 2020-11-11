@@ -86,6 +86,7 @@ function displayWeatherForecast(response) {
   }
 }
 function handleOpenWeatherMapResponse(weatherData) {
+  console.log(weatherData);
   let weatherReportElement = document.querySelector("#weather-report");
   weatherReportElement.style.display = "block";
 
@@ -137,6 +138,8 @@ function showWeatherDataForCurrentLocation() {
   navigator.geolocation.getCurrentPosition(showWeatherDataForLocation);
 }
 
+function updateSunriseTime() {}
+
 function updateTemperatureToFahrenheit(event) {
   event.preventDefault();
   temperatureUnit = "fahrenheit";
@@ -155,6 +158,7 @@ function updateTemperatureToCelsius(event) {
   let temperatureElement = document.querySelector("#temperature-digits");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
+
 let celsiusTemperature = null;
 let temperatureUnit = "celsius";
 

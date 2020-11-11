@@ -1,7 +1,12 @@
 hr {
   border: none;
-  border-top: 2px solid;
-  opacity: 25%;
+  border-top: 5px solid;
+  opacity: 50%;
+}
+
+h3 {
+  line-height: 30px;
+  padding: 0px 5px 20px 5px;
 }
 
 .city {
@@ -12,11 +17,11 @@ hr {
 
 .weather-app {
   margin: 40px auto;
-  width: 500px;
+  width: 550px;
   border: 1px solid #00587a;
   padding: 30px;
-  border-radius: 5px;
-  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  border-radius: 10px;
+  background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
 }
 
 .weather-info {
@@ -81,7 +86,11 @@ hr {
   width: 35%;
 }
 
-#weather-forecast .col {
+#weather-forecast {
   text-align: center;
   color: #00587a;
+}
+
+#weather-forecast img {
+  width: 50px;
 }
