@@ -10,7 +10,7 @@ h3 {
 }
 
 .city {
-  font-size: 30px;
+  font-size: 40px;
   padding: 20px 0 0 0;
   color: #00587a;
 }
@@ -21,7 +21,7 @@ h3 {
   border: 1px solid #00587a;
   padding: 30px;
   border-radius: 10px;
-  background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
 }
 
 .weather-info {
@@ -29,13 +29,18 @@ h3 {
   color: #00587a;
 }
 
-.sunrise-sunset {
-  font-weight: 450;
+.min-max-temp {
+  font-weight: bold;
+  color: #00587a;
+}
+
+.weather-info {
+  font-weight: bold;
   color: #00587a;
 }
 
 .current-date {
-  font-size: 25px;
+  font-size: 20px;
   color: #00587a;
 }
 

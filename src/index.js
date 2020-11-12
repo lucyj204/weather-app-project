@@ -28,7 +28,7 @@ function formatCurrentDate() {
   let month = months[now.getMonth()];
   let hours = String(now.getHours()).padStart(2, "0");
   let minutes = String(now.getMinutes()).padStart(2, `0`);
-  return `${day} ${date} ${month} ${hours}:${minutes}`;
+  return `Last updated at ${hours}:${minutes} <br/> ${day} ${date} ${month}`;
 }
 
 function formatForecastTime(timestamp) {
@@ -111,6 +111,24 @@ function handleOpenWeatherMapResponse(weatherData) {
   let currentCityElement = document.querySelector("#current-city");
   currentCityElement.innerHTML = currentCity;
 
+  let currentWeatherDescription = weatherData.weather[0].description;
+  let currentWeatherDescriptionElement = document.querySelector(
+    "#weather-description"
+  );
+  currentWeatherDescriptionElement.innerHTML = currentWeatherDescription;
+
+  let minTemperatureForCurrentLocation = Math.round(weatherData.main.temp_min);
+  let minTemperatureForCurrentLocationElement = document.querySelector(
+    "#min-temp"
+  );
+  minTemperatureForCurrentLocationElement.innerHTML = minTemperatureForCurrentLocation;
+
+  let maxTemperatureForCurrentLocation = Math.round(weatherData.main.temp_max);
+  let maxTemperatureForCurrentLocationElement = document.querySelector(
+    "#max-temp"
+  );
+  maxTemperatureForCurrentLocationElement.innerHTML = maxTemperatureForCurrentLocation;
+
   let weatherIconElement = document.querySelector("#current-weather-icon");
   weatherIconElement.setAttribute(
     "src",
@@ -137,8 +155,6 @@ function showWeatherDataForLocation(position) {
 function showWeatherDataForCurrentLocation() {
   navigator.geolocation.getCurrentPosition(showWeatherDataForLocation);
 }
-
-function updateSunriseTime() {}
 
 function updateTemperatureToFahrenheit(event) {
   event.preventDefault();

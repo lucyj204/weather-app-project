@@ -60,15 +60,17 @@
           <a href="#" class="active" id="celsius">°C</a>
           <span class="temperature-divider">|</span
           ><a href="#" id="fahrenheit"> °F</a>
+          <br />
+          <span id="weather-description"></span>
         </p>
         <hr />
         <div class="container">
           <div class="row">
             <div class="col">
-              <p class="sunrise-sunset">
-                Sunrise: <span id="sunrise-time"></span>
+              <p class="min-max-temp">
+                Min: <span id="min-temp"></span> °C
                 <br />
-                Sunset: <span id="sunset-time"></span>
+                Max: <span id="max-temp"></span> °C
               </p>
             </div>
 
@@ -81,7 +83,6 @@
             </div>
           </div>
           <hr />
-          <h3>Forecast</h3>
           <div class="row" id="weather-forecast"></div>
         </div>
       </div>
