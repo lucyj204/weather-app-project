@@ -69,6 +69,18 @@ function showWeatherDataForSearchCity(event) {
   axios.get(apiUrl).then(displayWeatherForecast);
 }
 
+function getTemperatureForWeatherForecast(response, index) {
+  let temperatureForecastCelsius = response.data.list[index].main.temp;
+  temperatureForecastsCelsius[index] = temperatureForecastCelsius;
+  if (temperatureUnit === "fahrenheit") {
+    let temperatureForecastFahrenheit =
+      (temperatureForecastCelsius * 9) / 5 + 32;
+    return Math.round(temperatureForecastFahrenheit);
+  } else {
+    return Math.round(temperatureForecastCelsius);
+  }
+}
+
 function displayWeatherForecast(response) {
   let weatherForecastElement = document.querySelector("#weather-forecast");
   weatherForecastElement.innerHTML = null;
@@ -83,7 +95,9 @@ function displayWeatherForecast(response) {
                   weatherForecast.dt * 1000
                 )}</strong>
                 <br />
-                ${Math.round(weatherForecast.main.temp)}°
+                <span id="weather-forecast-temp-${index}">
+                ${getTemperatureForWeatherForecast(response, index)}°
+                </span>
                 <br />
                 <img src="http://openweathermap.org/img/wn/${
                   weatherForecast.weather[0].icon
@@ -111,13 +125,23 @@ function handleOpenWeatherMapResponse(weatherData) {
     temperatureElement.innerHTML = Math.round(temperatureCelsius);
   }
 
-  temperatureCelsiusMin = Math.round(weatherData.main.temp_min);
-  let temperatureCelsiusMinElement = document.querySelector("#min-temp");
-  temperatureCelsiusMinElement.innerHTML = temperatureCelsiusMin;
+  temperatureMinCelsius = weatherData.main.temp_min;
+  let temperatureMinElement = document.querySelector("#min-temp");
+  if (temperatureUnit === "fahrenheit") {
+    let temperatureMinFahrenheit = (temperatureMinCelsius * 9) / 5 + 32;
+    temperatureMinElement.innerHTML = Math.round(temperatureMinFahrenheit);
+  } else {
+    temperatureMinElement.innerHTML = Math.round(temperatureMinCelsius);
+  }
 
-  temperatureCelsiusMax = Math.round(weatherData.main.temp_max);
-  let temperatureCelsiusMaxElement = document.querySelector("#max-temp");
-  temperatureCelsiusMaxElement.innerHTML = temperatureCelsiusMax;
+  temperatureMaxCelsius = weatherData.main.temp_max;
+  let temperatureMaxElement = document.querySelector("#max-temp");
+  if (temperatureUnit === "fahrenheit") {
+    let temperatureMaxFahrenheit = (temperatureMaxCelsius * 9) / 5 + 32;
+    temperatureMaxElement.innerHTML = Math.round(temperatureMaxFahrenheit);
+  } else {
+    temperatureMaxElement.innerHTML = Math.round(temperatureMaxCelsius);
+  }
 
   let humidity = Math.round(weatherData.main.humidity);
   let humidityElement = document.querySelector("#humidity");
@@ -177,9 +201,36 @@ function updateTemperatureToFahrenheit(event) {
   temperatureUnit = "fahrenheit";
   changetoCelsius.classList.remove("active");
   changeToFahrenheit.classList.add("active");
-  let fahrenheitTemperature = (temperatureCelsius * 9) / 5 + 32;
+  let temperatureFahrenheit = (temperatureCelsius * 9) / 5 + 32;
+  let temperatureMinFahrenheit = (temperatureMinCelsius * 9) / 5 + 32;
+  let temperatureMaxFahrenheit = (temperatureMaxCelsius * 9) / 5 + 32;
+
+  let temperatureForecastsFahrenheit = [];
+  for (let index = 0; index < 6; index++) {
+    temperatureForecastsFahrenheit[index] =
+      (temperatureForecastsCelsius[index] * 9) / 5 + 32;
+  }
+
   let temperatureElement = document.querySelector("#temperature-digits");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  let temperatureMinElement = document.querySelector("#min-temp");
+  let temperatureMaxElement = document.querySelector("#max-temp");
+
+  let temperatureForecastsElements = [];
+  for (let index = 0; index < 6; index++) {
+    temperatureForecastsElements[index] = document.querySelector(
+      `#weather-forecast-temp-${index}`
+    );
+  }
+
+  temperatureElement.innerHTML = Math.round(temperatureFahrenheit);
+  temperatureMinElement.innerHTML = Math.round(temperatureMinFahrenheit);
+  temperatureMaxElement.innerHTML = Math.round(temperatureMaxFahrenheit);
+
+  for (let index = 0; index < 6; index++) {
+    temperatureForecastsElements[index].innerHTML = Math.round(
+      temperatureForecastsFahrenheit[index]
+    );
+  }
 }
 
 function updateTemperatureToCelsius(event) {
@@ -188,12 +239,17 @@ function updateTemperatureToCelsius(event) {
   changeToFahrenheit.classList.remove("active");
   changetoCelsius.classList.add("active");
   let temperatureElement = document.querySelector("#temperature-digits");
+  let temperatureMinElement = document.querySelector("#min-temp");
+  let temperatureMaxElement = document.querySelector("#max-temp");
   temperatureElement.innerHTML = Math.round(temperatureCelsius);
+  temperatureMinElement.innerHTML = Math.round(temperatureMinCelsius);
+  temperatureMaxElement.innerHTML = Math.round(temperatureMaxCelsius);
 }
 
 let temperatureCelsius = null;
-let temperatureCelsiusMax = null;
-let temperatureCelsusMin = null;
+let temperatureMaxCelsius = null;
+let temperatureMinCelsus = null;
+let temperatureForecastsCelsius = [];
 let temperatureUnit = "celsius";
 
 let searchButton = document.querySelector("#city-form");
