@@ -28,10 +28,17 @@ function formatCurrentDate() {
   let month = months[now.getMonth()];
   let hours = String(now.getHours()).padStart(2, "0");
   let minutes = String(now.getMinutes()).padStart(2, `0`);
-  return `Last updated at ${hours}:${minutes} <br/> ${day} ${date} ${month}`;
+  return `${day} ${date} ${month}<br/>Last updated at ${hours}:${minutes}`;
 }
 
 function formatForecastTime(timestamp) {
+  let now = new Date(timestamp);
+  let hours = String(now.getHours()).padStart(2, "0");
+  let minutes = String(now.getMinutes()).padStart(2, `0`);
+  return `${hours}:${minutes}`;
+}
+
+function formatSunriseSunetTime(timestamp) {
   let now = new Date(timestamp);
   let hours = String(now.getHours()).padStart(2, "0");
   let minutes = String(now.getMinutes()).padStart(2, `0`);
@@ -76,7 +83,7 @@ function displayWeatherForecast(response) {
                   weatherForecast.dt * 1000
                 )}</strong>
                 <br />
-                ${Math.round(weatherForecast.main.temp)}°C
+                ${Math.round(weatherForecast.main.temp)}°
                 <br />
                 <img src="http://openweathermap.org/img/wn/${
                   weatherForecast.weather[0].icon
@@ -128,6 +135,14 @@ function handleOpenWeatherMapResponse(weatherData) {
     "#max-temp"
   );
   maxTemperatureForCurrentLocationElement.innerHTML = maxTemperatureForCurrentLocation;
+
+  let sunriseTime = weatherData.sys.sunrise;
+  let sunriseTimeElement = document.querySelector("#sunrise-time");
+  sunriseTimeElement.innerHTML = formatSunriseSunetTime(sunriseTime * 1000);
+
+  let sunsetTime = weatherData.sys.sunset;
+  let sunsetTimeElement = document.querySelector("#sunset-time");
+  sunsetTimeElement.innerHTML = formatSunriseSunetTime(sunsetTime * 1000);
 
   let weatherIconElement = document.querySelector("#current-weather-icon");
   weatherIconElement.setAttribute(
