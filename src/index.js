@@ -92,19 +92,32 @@ function displayWeatherForecast(response) {
             </div>`;
   }
 }
+
 function handleOpenWeatherMapResponse(weatherData) {
   console.log(weatherData);
   let weatherReportElement = document.querySelector("#weather-report");
   weatherReportElement.style.display = "block";
 
-  celsiusTemperature = weatherData.main.temp;
+  let currentDateElement = document.querySelector(".current-date");
+  currentDateElement.innerHTML = formatCurrentDate();
 
-  let currentDate = document.querySelector(".current-date");
-  currentDate.innerHTML = formatCurrentDate();
+  temperatureCelsius = weatherData.main.temp;
 
-  let temperature = Math.round(weatherData.main.temp);
   let temperatureElement = document.querySelector("#temperature-digits");
-  temperatureElement.innerHTML = temperature;
+  if (temperatureUnit === "fahrenheit") {
+    let temperatureFahrenheit = (temperatureCelsius * 9) / 5 + 32;
+    temperatureElement.innerHTML = Math.round(temperatureFahrenheit);
+  } else {
+    temperatureElement.innerHTML = Math.round(temperatureCelsius);
+  }
+
+  temperatureCelsiusMin = Math.round(weatherData.main.temp_min);
+  let temperatureCelsiusMinElement = document.querySelector("#min-temp");
+  temperatureCelsiusMinElement.innerHTML = temperatureCelsiusMin;
+
+  temperatureCelsiusMax = Math.round(weatherData.main.temp_max);
+  let temperatureCelsiusMaxElement = document.querySelector("#max-temp");
+  temperatureCelsiusMaxElement.innerHTML = temperatureCelsiusMax;
 
   let humidity = Math.round(weatherData.main.humidity);
   let humidityElement = document.querySelector("#humidity");
@@ -123,18 +136,6 @@ function handleOpenWeatherMapResponse(weatherData) {
     "#weather-description"
   );
   currentWeatherDescriptionElement.innerHTML = currentWeatherDescription;
-
-  let minTemperatureForCurrentLocation = Math.round(weatherData.main.temp_min);
-  let minTemperatureForCurrentLocationElement = document.querySelector(
-    "#min-temp"
-  );
-  minTemperatureForCurrentLocationElement.innerHTML = minTemperatureForCurrentLocation;
-
-  let maxTemperatureForCurrentLocation = Math.round(weatherData.main.temp_max);
-  let maxTemperatureForCurrentLocationElement = document.querySelector(
-    "#max-temp"
-  );
-  maxTemperatureForCurrentLocationElement.innerHTML = maxTemperatureForCurrentLocation;
 
   let sunriseTime = weatherData.sys.sunrise;
   let sunriseTimeElement = document.querySelector("#sunrise-time");
@@ -176,7 +177,7 @@ function updateTemperatureToFahrenheit(event) {
   temperatureUnit = "fahrenheit";
   changetoCelsius.classList.remove("active");
   changeToFahrenheit.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let fahrenheitTemperature = (temperatureCelsius * 9) / 5 + 32;
   let temperatureElement = document.querySelector("#temperature-digits");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
@@ -187,10 +188,12 @@ function updateTemperatureToCelsius(event) {
   changeToFahrenheit.classList.remove("active");
   changetoCelsius.classList.add("active");
   let temperatureElement = document.querySelector("#temperature-digits");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  temperatureElement.innerHTML = Math.round(temperatureCelsius);
 }
 
-let celsiusTemperature = null;
+let temperatureCelsius = null;
+let temperatureCelsiusMax = null;
+let temperatureCelsusMin = null;
 let temperatureUnit = "celsius";
 
 let searchButton = document.querySelector("#city-form");
