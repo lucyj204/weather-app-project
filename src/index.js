@@ -178,7 +178,8 @@ function showWeatherDataForLocation(position) {
   axios.get(apiUrl).then(displayWeatherForecast);
 }
 
-function showWeatherDataForCurrentLocation() {
+function showWeatherDataForCurrentLocation(event) {
+  event.preventDefault();
   navigator.geolocation.getCurrentPosition(showWeatherDataForLocation);
 }
 
@@ -236,7 +237,7 @@ let temperatureMinCelsus = null;
 let temperatureForecastsCelsius = [];
 let temperatureUnit = "celsius";
 
-let searchButton = document.querySelector("#city-form");
+let searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", showWeatherDataForSearchCity);
 
 let currentCityButton = document.querySelector("#current-city-button");
