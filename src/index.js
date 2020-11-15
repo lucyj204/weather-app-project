@@ -137,6 +137,10 @@ function handleOpenWeatherMapResponse(weatherData) {
   let currentCityElement = document.querySelector("#current-city");
   currentCityElement.innerHTML = currentCity;
 
+  let currentCountry = weatherData.sys.country;
+  let currentCountryElement = document.querySelector("#current-country");
+  currentCountryElement.innerHTML = currentCountry;
+
   let currentWeatherDescription = weatherData.weather[0].description;
   let currentWeatherDescriptionElement = document.querySelector(
     "#weather-description"
