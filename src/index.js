@@ -53,24 +53,25 @@ function showWeatherDataForSearchCity(event) {
   if (city === ``) {
     return;
   }
+
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let weatherPromise = axios.get(apiUrl);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  let forecastPromise = axios.get(apiUrl);
 
   function handle(response) {
-    handleOpenWeatherMapResponse(response.data);
+    let weatherResponse = response[0];
+    let forecastResponse = response[1];
+    handleOpenWeatherMapResponse(weatherResponse.data);
+    displayWeatherForecast(forecastResponse);
   }
 
-  function handleWeatherError(error) {
+  function handleError(error) {
     alert("Please enter a valid city and try again");
   }
 
-  function handleForecastError(error) {
-    //Showing an alert for weather API errors already
-  }
-
-  axios.get(apiUrl).then(handle, handleWeatherError);
-
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayWeatherForecast, handleForecastError);
+  Promise.all([weatherPromise, forecastPromise]).then(handle, handleError);
 }
 
 function getTemperatureForWeatherForecast(response, index) {
@@ -141,7 +142,7 @@ function handleOpenWeatherMapResponse(weatherData) {
   let currentCountryElement = document.querySelector("#current-country");
   currentCountryElement.innerHTML = currentCountry;
 
-  let currentWeatherDescription = weatherData.weather[0].description;
+  let currentWeatherDescription = weatherData.weather[0].main;
   let currentWeatherDescriptionElement = document.querySelector(
     "#weather-description"
   );
@@ -167,15 +168,22 @@ function showWeatherDataForLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "dabd98cfd37b165b82490053d8895cbc";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-  function handle(response) {
-    handleOpenWeatherMapResponse(response.data);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  let weatherPromise = axios.get(apiUrl);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  let forecastPromise = axios.get(apiUrl);
+
+  function handle(responses) {
+    let weatherResponse = responses[0];
+    let forecastResponse = responses[1];
+
+    handleOpenWeatherMapResponse(weatherResponse.data);
+    displayWeatherForecast(forecastResponse);
   }
 
-  axios.get(apiUrl).then(handle);
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayWeatherForecast);
+  Promise.all([weatherPromise, forecastPromise]).then(handle);
 }
 
 function showWeatherDataForCurrentLocation(event) {

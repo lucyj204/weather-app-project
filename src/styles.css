@@ -1,7 +1,7 @@
 hr {
   border: none;
-  border-top: 5px solid;
-  opacity: 50%;
+  border-top: 10px solid;
+  opacity: 70%;
 }
 
 h3 {
@@ -9,16 +9,20 @@ h3 {
   padding: 0px 5px 20px 5px;
 }
 
+a {
+  color: #52057b;
+}
+
 .city {
-  font-size: 40px;
+  font-size: 50px;
   padding: 20px 0 0 0;
-  color: #00587a;
+  color: #52057b;
 }
 
 .weather-app {
   margin: 40px auto;
   width: 550px;
-  border: 1px solid #00587a;
+  border: 3px solid #52057b;
   padding: 30px;
   border-radius: 10px;
   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
@@ -26,26 +30,31 @@ h3 {
 
 .weather-info {
   font-weight: 450;
-  color: #00587a;
+  color: #52057b;
 }
 
 .min-max-temp {
-  font-weight: bold;
-  color: #00587a;
+  color: #52057b;
+  padding-right: 0px;
+  padding-left: 40px;
 }
 
 .weather-info {
-  font-weight: bold;
-  color: #00587a;
+  color: #52057b;
+}
+
+.sunrise-sunset {
+  color: #52057b;
+  padding-left: 15px;
 }
 
 .current-date {
-  font-size: 20px;
-  color: #00587a;
+  font-size: 25px;
+  color: #52057b;
 }
 
 .weather-icon {
-  font-size: 200%;
+  font-size: 300%;
 }
 
 .active {
@@ -70,7 +79,7 @@ h3 {
 #temperature-digits {
   font-size: 70px;
   font-weight: 350;
-  color: #00587a;
+  color: #52057b;
   vertical-align: middle;
 }
 
@@ -80,6 +89,14 @@ h3 {
 
 #fahrenheit {
   font-size: 20px;
+}
+
+#weather-description {
+  text-transform: capitalize;
+  color: #52057b;
+  vertical-align: middle;
+  padding-left: 30px;
+  font-size: 40px;
 }
 
 #current-city {
@@ -93,7 +110,7 @@ h3 {
 
 #weather-forecast {
   text-align: center;
-  color: #00587a;
+  color: #52057b;
 }
 
 #weather-forecast img {
