@@ -1,16 +1,26 @@
+body {
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
 hr {
   border: none;
   border-top: 10px solid;
-  opacity: 70%;
 }
 
 h3 {
-  line-height: 30px;
+  line-height: 20px;
   padding: 0px 5px 20px 5px;
+  color: #52057b;
+  font-weight: bold;
+  font-size: 30px;
 }
 
 a {
   color: #52057b;
+}
+
+.weather-app-container {
+  margin: 0 auto;
+  width: 700px;
 }
 
 .city {
@@ -21,7 +31,7 @@ a {
 
 .weather-app {
   margin: 40px auto;
-  width: 550px;
+  width: 650px;
   border: 3px solid #52057b;
   padding: 30px;
   border-radius: 10px;
@@ -35,17 +45,26 @@ a {
 
 .min-max-temp {
   color: #52057b;
+  font-size: 20px;
   padding-right: 0px;
   padding-left: 40px;
+  text-align: center;
+  font-weight: 500;
 }
 
 .weather-info {
   color: #52057b;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
 }
 
 .sunrise-sunset {
   color: #52057b;
+  font-size: 20px;
   padding-left: 15px;
+  text-align: center;
+  font-weight: 500;
 }
 
 .current-date {
@@ -70,10 +89,6 @@ a {
 
 .temperature-divider {
   font-size: 20px;
-}
-
-.open-source-link {
-  text-align: center;
 }
 
 #temperature-digits {
@@ -103,7 +118,7 @@ a {
   text-transform: capitalize;
 }
 
-#current-weather-icon {
+#current-weather-icon img {
   vertical-align: middle;
   width: 35%;
 }
@@ -114,5 +129,13 @@ a {
 }
 
 #weather-forecast img {
-  width: 50px;
+  width: 60px;
+}
+
+#open-source-link {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  margin: 0 auto;
+  margin-bottom: 40px;
 }

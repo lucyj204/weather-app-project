@@ -28,17 +28,10 @@ function formatCurrentDate() {
   let month = months[now.getMonth()];
   let hours = String(now.getHours()).padStart(2, "0");
   let minutes = String(now.getMinutes()).padStart(2, `0`);
-  return `${day} ${date} ${month}<br/>Last updated at ${hours}:${minutes}`;
+  return `${day} ${date} ${month}<br/><small>Last updated at ${hours}:${minutes}</small>`;
 }
 
-function formatForecastTime(timestamp) {
-  let now = new Date(timestamp);
-  let hours = String(now.getHours()).padStart(2, "0");
-  let minutes = String(now.getMinutes()).padStart(2, `0`);
-  return `${hours}:${minutes}`;
-}
-
-function formatSunriseSunetTime(timestamp) {
+function formatTimeData(timestamp) {
   let now = new Date(timestamp);
   let hours = String(now.getHours()).padStart(2, "0");
   let minutes = String(now.getMinutes()).padStart(2, `0`);
@@ -90,9 +83,7 @@ function displayWeatherForecast(response) {
     weatherForecastElement.innerHTML += `
             <div class="col">
               <p>
-                <strong>${formatForecastTime(
-                  weatherForecast.dt * 1000
-                )}</strong>
+                <strong>${formatTimeData(weatherForecast.dt * 1000)}</strong>
                 <br />
                 <span id="weather-forecast-temp-${index}">
                 ${getTemperatureForWeatherForecast(response, index)}</span>°
@@ -107,60 +98,42 @@ function displayWeatherForecast(response) {
 
 function handleOpenWeatherMapResponse(weatherData) {
   console.log(weatherData);
-  let weatherReportElement = document.querySelector("#weather-report");
   weatherReportElement.style.display = "block";
 
-  let currentDateElement = document.querySelector(".current-date");
   currentDateElement.innerHTML = formatCurrentDate();
 
   temperatureCelsius = weatherData.main.temp;
 
-  let temperatureElement = document.querySelector("#temperature-digits");
   temperatureElement.innerHTML = displayTemperature(temperatureCelsius);
 
   temperatureMinCelsius = weatherData.main.temp_min;
-  let temperatureMinElement = document.querySelector("#min-temp");
   temperatureMinElement.innerHTML = displayTemperature(temperatureMinCelsius);
 
   temperatureMaxCelsius = weatherData.main.temp_max;
-  let temperatureMaxElement = document.querySelector("#max-temp");
   temperatureMaxElement.innerHTML = displayTemperature(temperatureMaxCelsius);
 
   let humidity = Math.round(weatherData.main.humidity);
-  let humidityElement = document.querySelector("#humidity");
   humidityElement.innerHTML = humidity;
 
   let windSpeed = Math.round(weatherData.wind.speed);
-  let windElement = document.querySelector("#wind-speed");
   windElement.innerHTML = windSpeed;
 
   let currentCity = weatherData.name;
-  let currentCityElement = document.querySelector("#current-city");
   currentCityElement.innerHTML = currentCity;
 
   let currentCountry = weatherData.sys.country;
-  let currentCountryElement = document.querySelector("#current-country");
   currentCountryElement.innerHTML = currentCountry;
 
   let currentWeatherDescription = weatherData.weather[0].main;
-  let currentWeatherDescriptionElement = document.querySelector(
-    "#weather-description"
-  );
   currentWeatherDescriptionElement.innerHTML = currentWeatherDescription;
 
   let sunriseTime = weatherData.sys.sunrise;
-  let sunriseTimeElement = document.querySelector("#sunrise-time");
-  sunriseTimeElement.innerHTML = formatSunriseSunetTime(sunriseTime * 1000);
+  sunriseTimeElement.innerHTML = formatTimeData(sunriseTime * 1000);
 
   let sunsetTime = weatherData.sys.sunset;
-  let sunsetTimeElement = document.querySelector("#sunset-time");
-  sunsetTimeElement.innerHTML = formatSunriseSunetTime(sunsetTime * 1000);
+  sunsetTimeElement.innerHTML = formatTimeData(sunsetTime * 1000);
 
-  let weatherIconElement = document.querySelector("#current-weather-icon");
-  weatherIconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
-  );
+  weatherIconElement.innerHTML = `<img src="http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png"/>`;
 }
 
 function showWeatherDataForLocation(position) {
@@ -224,13 +197,10 @@ function updateTemperature(unit) {
     changetoCelsius.classList.add("active");
   }
 
-  let temperatureElement = document.querySelector("#temperature-digits");
   temperatureElement.innerHTML = displayTemperature(temperatureCelsius);
 
-  let temperatureMinElement = document.querySelector("#min-temp");
   temperatureMinElement.innerHTML = displayTemperature(temperatureMinCelsius);
 
-  let temperatureMaxElement = document.querySelector("#max-temp");
   temperatureMaxElement.innerHTML = displayTemperature(temperatureMaxCelsius);
 
   for (let index = 0; index < 6; index++) {
@@ -245,15 +215,28 @@ let temperatureMinCelsus = null;
 let temperatureForecastsCelsius = [];
 let temperatureUnit = "celsius";
 
+let weatherReportElement = document.querySelector("#weather-report");
+let currentDateElement = document.querySelector(".current-date");
+let temperatureElement = document.querySelector("#temperature-digits");
+let temperatureMinElement = document.querySelector("#min-temp");
+let temperatureMaxElement = document.querySelector("#max-temp");
+let humidityElement = document.querySelector("#humidity");
+let windElement = document.querySelector("#wind-speed");
+let currentCityElement = document.querySelector("#current-city");
+let currentCountryElement = document.querySelector("#current-country");
+let currentWeatherDescriptionElement = document.querySelector(
+  "#weather-description"
+);
+let sunriseTimeElement = document.querySelector("#sunrise-time");
+let sunsetTimeElement = document.querySelector("#sunset-time");
+let weatherIconElement = document.querySelector("#current-weather-icon");
+
 let searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", showWeatherDataForSearchCity);
-
 let currentCityButton = document.querySelector("#current-city-button");
 currentCityButton.addEventListener("click", showWeatherDataForCurrentLocation);
-
 let changeToFahrenheit = document.querySelector("#fahrenheit");
 changeToFahrenheit.addEventListener("click", updateTemperatureToFahrenheit);
-
 let changetoCelsius = document.querySelector("#celsius");
 changetoCelsius.addEventListener("click", updateTemperatureToCelsius);
 
