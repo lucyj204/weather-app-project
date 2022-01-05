@@ -41,7 +41,7 @@ function formatTimeData(timestamp) {
 function showWeatherDataForSearchCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input");
-  let apiKey = "dabd98cfd37b165b82490053d8895cbc";
+  let apiKey = "41c63daacbbca70e4cab465b3c854000";
   let city = cityInput.value;
   if (city === ``) {
     return;
@@ -140,7 +140,7 @@ function showWeatherDataForLocation(position) {
   console.log("position is", position);
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let apiKey = "dabd98cfd37b165b82490053d8895cbc";
+  let apiKey = "41c63daacbbca70e4cab465b3c854000";
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   let weatherPromise = axios.get(apiUrl);
